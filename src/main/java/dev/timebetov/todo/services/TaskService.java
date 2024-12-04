@@ -20,8 +20,9 @@ public class TaskService {
 
         Task userTask = new Task(title, description, deadline);
 
-        boolean isAdded = taskRepo.addTask(userTask);
-        if (isAdded) {
+        int id = taskRepo.addTask(userTask);
+        if (id >= 0) {
+            userTask.setId(id);
             return userTask;
         }
 

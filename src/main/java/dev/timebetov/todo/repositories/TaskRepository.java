@@ -16,7 +16,7 @@ public class TaskRepository {
         this.dataSource = DatabaseConfig.getDataSource();
     }
 
-    public boolean addTask(Task task) throws SQLException {
+    public int addTask(Task task) throws SQLException {
 
         String sql = "INSERT INTO tasks (title, description, status, due_date) VALUES (?, ?, ?, ?)";
         try (Connection conn = dataSource.getConnection();
@@ -28,7 +28,15 @@ public class TaskRepository {
             pstmt.setTimestamp(4, task.getDueTime());
 
             int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;
+            if (rowsAffected > 0) {
+                try (ResultSet gKeys = pstmt.getGeneratedKeys()) {
+                    if (gKeys.next()) {
+                        return gKeys.getInt(1);
+                    }
+                }
+            }
+            // No ID was generated
+            return -1;
         }
     }
 

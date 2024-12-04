@@ -30,7 +30,7 @@ public class TaskServiceTest {
         Timestamp deadline = Timestamp.valueOf(LocalDateTime.now().plusDays(2));
 
         Task task = new Task("Title", "Description", deadline);
-        Mockito.when(taskRepository.addTask(task)).thenReturn(true);
+        Mockito.when(taskRepository.addTask(task)).thenReturn(0);
 
         Task result = taskService.addTask("Title", "Description", deadline);
 

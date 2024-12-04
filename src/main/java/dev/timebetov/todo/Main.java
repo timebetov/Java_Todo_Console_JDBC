@@ -204,7 +204,7 @@ public class Main {
 
     private static void cleanList(Scanner scanner, TaskService taskService) {
 
-        String input = Utils.getInput(scanner, "Are you sure to clear list? (yes/no): ", false);
+        String input = Utils.getInput(scanner, "Are you sure to clear list? (yes/nope): ", false);
 
         if (input.equalsIgnoreCase("yes")) {
             try {
